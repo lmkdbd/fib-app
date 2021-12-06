@@ -151,11 +151,11 @@ export const filterRequest: FibApp.FibAppClass['filterRequest'] = function (
 
                 break
         }
-
-        _req.response_headers = util.extend({
-            'Content-Type': ouputMap[_req.req_resource_type] || ouputMap.json
-        }, _req.response_headers)
-        
+        if(_req.request.response.statusCode < 400) {
+            _req.response_headers = util.extend({
+                'Content-Type': ouputMap[_req.req_resource_type] || ouputMap.json
+            }, _req.response_headers);
+        }
         if (_req && _req.response_headers)
             app_httprequest.response.setHeader(_req.response_headers);
     });
